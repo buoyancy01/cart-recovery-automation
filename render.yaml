@@ -2,7 +2,6 @@ services:
   - type: web
     name: cart-recovery-api
     env: python
-    plan: starter
     buildCommand: pip install -r requirements.txt
     startCommand: uvicorn app.main:app --host 0.0.0.0 --port $PORT
     envVars:
@@ -29,7 +28,6 @@ services:
   - type: worker
     name: cart-recovery-worker
     env: python
-    plan: starter
     buildCommand: pip install -r requirements.txt
     startCommand: celery -A app.services.scheduler.celery_app worker --loglevel=info
     envVars:
@@ -53,9 +51,3 @@ services:
 
 databases:
   - name: cart-recovery-db
-    plan: starter
-
-services:
-  - type: redis
-    name: cart-recovery-redis
-    plan: starter
